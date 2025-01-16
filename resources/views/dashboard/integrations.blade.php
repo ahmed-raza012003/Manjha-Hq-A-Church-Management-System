@@ -1,4 +1,5 @@
-
+@extends('layouts.base')
+@section('content')
 <style>
 
     .section-title {
@@ -208,5 +209,5 @@
       </div>
     </div>
   </div>
-  
+  @endsection
 

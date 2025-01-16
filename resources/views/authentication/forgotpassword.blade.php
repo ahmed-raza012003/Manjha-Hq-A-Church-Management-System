@@ -137,19 +137,22 @@
       </p>
 
       <!-- Form -->
-      <form>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            placeholder="input your email in here"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Submit</button>
-      </form>
+      <form method="POST" action="{{ route('password.email') }}">
+  @csrf
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      class="form-control"
+      placeholder="input your email in here"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary w-100">Submit</button>
+</form>
+
     </div>
 
     <!-- Bootstrap JS -->

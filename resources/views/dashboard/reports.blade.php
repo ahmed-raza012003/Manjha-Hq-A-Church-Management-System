@@ -1,4 +1,5 @@
-
+@extends('layouts.base')
+@section('content')
 <style>
     /* Page Styling */
 
@@ -150,6 +151,6 @@
     </div>
   </div>
 
-
+  @endsection
 
 

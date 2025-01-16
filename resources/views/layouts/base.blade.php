@@ -6,17 +6,19 @@
   
     </title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="public/assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
     <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         rel="stylesheet"
     />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
  
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/kaiadmin.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+
   </head>
   <body>
     <div class="wrapper">
@@ -25,7 +27,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="white">
-            <a href="index.html" class="logo"><img src="{% static 'assets/img/logo.png' %}" alt="navbar brand" class="navbar-brand" height="40" /></a>
+            <a href="index.html" class="logo"><img src="{'assets/img/logo.png'}" alt="navbar brand" class="navbar-brand" height="40" /></a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
               <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
@@ -216,7 +218,7 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-                      <img src="{% static 'assets/img/profile.jpg' %}" alt="..." class="avatar-img rounded-circle" />
+                      <img src="{'assets/img/profile.jpg' %}" alt="..." class="avatar-img rounded-circle" />
                     </div>
                     <span class="profile-username">
                       <span class="fw-bold">Hizrian</span>
@@ -247,7 +249,7 @@
 
         <div class="container">
           <div class="page-inner">
-          
+          @yield('content')
           </div>
         </div>
       </div>
@@ -255,33 +257,35 @@
       <!-- End Custom template -->
     </div>
 
-    <script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+    <script src="{'assets/js/plugin/webfont/webfont.min.js' %}"></script>
     <!-- Core JS Files -->
-    <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
-    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+    <script src="{'assets/js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{'assets/js/core/popper.min.js' %}"></script>
+    <script src="{'assets/js/core/bootstrap.min.js' %}"></script>
 
     <!-- jQuery Scrollbar -->
-    <script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+    <script src="{'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
 
     <!-- Chart JS -->
 
     <!-- jQuery Sparkline -->
-    <script src="{% static 'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+    <script src="{'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
     <!-- jQuery Vector Maps -->
-    <script src="{% static 'assets/js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
-    <script src="{% static 'assets/js/plugin/jsvectormap/world.js' %}"></script>
+    <script src="{'assets/js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
+    <script src="{'assets/js/plugin/jsvectormap/world.js' %}"></script>
 
     <!-- Sweet Alert -->
-    <script src="{% static 'assets/js/plugin/sweetalert/sweetalert.min.js' %}"></script>
+    <script src="{'assets/js/plugin/sweetalert/sweetalert.min.js' %}"></script>
 
     <!-- Kaiadmin JS -->
-    <script src="{% static 'assets/js/kaiadmin.min.js' %}"></script>
+    <script src="{'assets/js/kaiadmin.min.js' %}"></script>
 
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="{% static 'assets/js/setting-demo.js' %}"></script>
-    <script src="{% static 'assets/js/demo.js' %}"></script>
+    <script src="{'assets/js/setting-demo.js' %}"></script>
+    <script src="{'assets/js/demo.js' %}"></script>
    
   </body>
 </html>
