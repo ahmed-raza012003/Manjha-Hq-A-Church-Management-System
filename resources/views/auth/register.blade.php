@@ -187,14 +187,18 @@
         <div class="divider">Or</div>
 
         <!-- Google Sign Up -->
-        <button type="button" class="btn btn-outline-primary w-100 mb-3">
-          Sign up with Google
-        </button>
+        <button
+  type="button"
+  class="btn btn-outline-primary w-100 mb-3"
+  onclick="window.location='{{ route('login.google') }}'"
+>
+  Sign up with Google
+</button>
 
         <!-- Facebook Sign Up -->
-        <button type="button" class="btn btn-outline-primary w-100">
-          Sign up with Facebook
-        </button>
+        <a href="{{ route('login.facebook') }}" class="btn btn-outline-primary w-100 mb-3">
+    Sign up with Facebook
+</a>
       </form>
 
       <!-- Sign In Link -->

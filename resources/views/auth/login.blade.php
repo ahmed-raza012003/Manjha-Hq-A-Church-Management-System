@@ -122,9 +122,16 @@
         <!-- Sign In Button -->
         <button type="submit" class="btn btn-primary w-100 mb-3">Sign in</button>
         <!-- Google Sign In -->
-        <button type="button" class="btn btn-outline-primary w-100 mb-3">Sign in with Google</button>
-        <!-- Facebook Sign In -->
-        <button type="button" class="btn btn-outline-primary w-100">Sign in with Facebook</button>
+        <button
+  type="button"
+  class="btn btn-outline-primary w-100 mb-3"
+  onclick="window.location='{{ route('login.google') }}'"
+>
+  Sign in with Google
+</button>        <!-- Facebook Sign In -->
+<a href="{{ route('login.facebook') }}" class="btn btn-outline-primary w-100 mb-3">
+    Sign in with Facebook
+</a>
       </form>
       <!-- Sign Up Link -->
       <div class="text-center mt-3">
