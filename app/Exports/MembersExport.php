@@ -29,7 +29,7 @@ class MembersExport implements FromCollection, WithHeadings
         'phone_number',
         'job_title',
         'employer',
-         'created_at')->get();
+         )->get();
     }
 
     /**
@@ -54,7 +54,6 @@ class MembersExport implements FromCollection, WithHeadings
         'phone_number',
         'job_title',
         'employer',
-             'created_at'           
         ];
     }
 }
