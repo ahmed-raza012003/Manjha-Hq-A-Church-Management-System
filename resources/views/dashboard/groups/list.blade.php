@@ -78,7 +78,7 @@
     }
 
     .dropdown-item {
-        padding: 10px;
+        /* padding: 10px; */
         color:rgb(0, 0, 0);
         font-size: 14px;
     }
@@ -179,7 +179,6 @@ td {
     </div>
 </div>
 
-<!-- Edit Group Modal (to be populated dynamically with group details) -->
 <div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -195,22 +194,26 @@ td {
                         <label for="editGroupName" class="form-label">Group Name</label>
                         <input type="text" class="form-control" id="editGroupName" name="name" required>
                     </div>
-                     
-                    <!-- New Image Upload -->
+
+                    <!-- Group Image Preview & Upload -->
                     <div class="mb-3">
                         <label for="groupImage" class="form-label">Update Group Image</label>
                         <input type="file" class="form-control" id="groupImage" name="image" accept="image/*">
+                        <img id="groupImagePreview" class="mt-2" style="width: 100px;" src="" alt="Group Image Preview">
                     </div>
+
                     <div class="mb-3">
                         <label for="editGroupDescription" class="form-label">Group Description</label>
                         <textarea class="form-control" id="editGroupDescription" name="description"></textarea>
                     </div>
+
                     <button type="submit" class="btn btn-custom w-100">Save Changes</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Message Modal -->
 <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
@@ -288,42 +291,44 @@ td {
                 </tr>
             </thead>
             <tbody>
-                @foreach ($groups as $group)
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <!-- Group Image & Name Column -->
-                    <td class="d-flex align-items-center">
-                        <img src="{{ asset('storage/' . $group->image) }}" class="table-img me-2" alt="Group Image">
-                        <div>
-                            <strong>{{ $group->name }}</strong>
-                        </div>
-                    </td>
-                    <!-- Visibility Column (Display "Members") -->
-                    <td>Members</td>
-                    <!-- Members Column (Display 15 in every row) -->
-                    <td>15</td>
-                    <td class="action-btn-container">
-                        <!-- Three Dots Button for Action Menu -->
-                        <button class="three-dot-btn" onclick="toggleActionMenu({{ $group->id }})">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                        <!-- Action Menu -->
-                        <div id="action-menu-{{ $group->id }}" class="dropdown-menu">
-                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editGroupModal" onclick="populateEditModal({{ $group->id }})">
-                                <i class="bi bi-pencil"></i> Edit
-                            </a>
-                            <form action="{{ route('groups.destroy', $group->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="dropdown-item btn-danger">
-                                    <i class="bi bi-trash"></i> Delete
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
+    @foreach ($groups as $group)
+    <tr>
+        <td><input type="checkbox"></td>
+        <!-- Group Image & Name Column -->
+        <td class="d-flex align-items-center">
+            <img src="{{ asset('storage/' . $group->image) }}" class="table-img me-2" alt="Group Image">
+            <div>
+                <strong>{{ $group->name }}</strong>
+            </div>
+        </td>
+        <!-- Visibility Column (Display "Members") -->
+        <td>Members</td>
+        <!-- Members Column (Dynamic Member Count) -->
+        <td>{{ $group->members_count }}</td>  <!-- Display the dynamically calculated member count -->
+        <td class="action-btn-container">
+            <!-- Three Dots Button for Action Menu -->
+            <button class="three-dot-btn" onclick="toggleActionMenu({{ $group->id }})">
+                <i class="bi bi-three-dots"></i>
+            </button>
+            <!-- Action Menu -->
+            <div id="action-menu-{{ $group->id }}" class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editGroupModal" onclick="populateEditModal({{ $group }})">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+
+                <form action="{{ route('groups.destroy', $group->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="dropdown-item ">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
+
         </table>
     </div>
 
@@ -423,12 +428,21 @@ td {
         document.getElementById('msg-' + msgType).style.display = 'block';
     }
 
-    function populateEditModal(groupId) {
-        // Populate the edit modal with group details (you can use AJAX or pass data directly)
+     // Populate the Edit Group Modal with dynamic group details
+     function populateEditModal(group) {
         const form = document.getElementById('editGroupForm');
-        form.action = `/groups/${groupId}`; // Set the form action to the correct URL
-        document.getElementById('editGroupName').value = 'Sample Group Name'; // Replace with dynamic value
-        document.getElementById('editGroupDescription').value = 'Sample Group Description'; // Replace with dynamic value
+        form.action = `/groups/${group.id}`; // Set the form action to the correct URL for the group
+
+        // Set the group name and description dynamically
+        document.getElementById('editGroupName').value = group.name; 
+        document.getElementById('editGroupDescription').value = group.description;
+
+        // Set the group image preview if available
+        if (group.image) {
+            document.getElementById('groupImagePreview').src = '/storage/' + group.image;
+        } else {
+            document.getElementById('groupImagePreview').src = 'default-image.jpg'; // Set a default image if none exists
+        }
     }
 </script>
 

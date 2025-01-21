@@ -77,7 +77,7 @@
     }
 
     .dropdown-item {
-        padding: 10px;
+      
         color:rgb(0, 0, 0);
         font-size: 14px;
     }
@@ -259,7 +259,7 @@ td {
                             <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="dropdown-item btn-danger">
+                                <button type="submit" class="dropdown-item ">
                                     <i class="bi bi-trash"></i> Delete
                                 </button>
                             </form>

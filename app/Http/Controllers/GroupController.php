@@ -18,15 +18,18 @@ class GroupController extends Controller
         $search = $request->get('search'); // Get the search term
     
         if ($search) {
-            // If search term exists, filter the groups by name
-            $groups = Group::where('name', 'like', '%' . $search . '%')->paginate(10);
+            // If search term exists, filter the groups by name and load member count
+            $groups = Group::withCount('members')
+                ->where('name', 'like', '%' . $search . '%')
+                ->paginate(10);
         } else {
-            // If no search term, retrieve all groups
-            $groups = Group::paginate(10);
+            // If no search term, retrieve all groups with member count
+            $groups = Group::withCount('members')->paginate(10);
         }
     
         return view('dashboard.groups.list', compact('groups'));
     }
+    
     
     public function store(Request $request)
     {

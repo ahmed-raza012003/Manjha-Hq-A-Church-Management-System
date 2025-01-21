@@ -36,7 +36,7 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $validatedData = $this->validateMember($request);
-
+        $validatedData['group_id'] = $request->input('group_id');
         if ($request->hasFile('picture')) {
             $validatedData['picture'] = $request->file('picture')->store('pictures', 'public');
         }
@@ -150,7 +150,7 @@ class MemberController extends Controller
             'picture' => 'nullable|image|max:2048',
             'gender' => 'nullable|string|max:10',
             'date_of_birth' => 'nullable|date',
-            'groups' => 'nullable|string|max:255',
+            'group_id' => 'nullable|int|max:255',
             'baptism_date' => 'nullable|date',
             'member_status' => 'nullable|string|max:50',
             'full_address' => 'nullable|string|max:255',

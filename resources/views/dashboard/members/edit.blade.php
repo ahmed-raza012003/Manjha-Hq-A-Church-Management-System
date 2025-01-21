@@ -124,8 +124,8 @@
                 <div id="other-details" class="section">
                     <h5>2. Other Details</h5>
                     <div class="form-group">
-    <label for="groups">Groups</label>
-    <select name="groups" class="form-control required" required>
+    <label for="group_id">Groups</label>
+    <select name="group_id" class="form-control required" required>
         <option value="">Select a group</option>
         @foreach($groups as $group)
             <option value="{{ $group->id }}" {{ (old('groups', $member->groups) == $group->id) ? 'selected' : '' }}>
