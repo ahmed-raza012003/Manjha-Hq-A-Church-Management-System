@@ -21,7 +21,7 @@ class Member extends Model
         'picture',
         'gender',
         'date_of_birth',
-        'groups',
+        'group_id',
         'baptism_date',
         'member_status',
         'full_address',
@@ -53,5 +53,11 @@ class Member extends Model
     public function scopeFinalized($query)
     {
         return $query->where('is_draft', false);
+    }
+
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class); // Assuming 'members' table has a 'group_id' foreign key
     }
 }

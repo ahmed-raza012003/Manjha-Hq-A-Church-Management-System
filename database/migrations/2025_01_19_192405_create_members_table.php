@@ -13,23 +13,29 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-    $table->string('first_name');
-    $table->string('middle_name')->nullable();
-    $table->string('nick_name')->nullable();
-    $table->string('picture')->nullable();
-    $table->enum('gender', ['male', 'female', 'other']);
-    $table->date('date_of_birth')->nullable();
-    $table->string('groups')->nullable();
-    $table->date('baptism_date')->nullable();
-    $table->enum('member_status', ['active', 'inactive']);
-    $table->string('full_address');
-    $table->string('city')->nullable();
-    $table->string('email')->unique();
-    $table->string('phone_number')->nullable();
-    $table->string('job_title')->nullable();
-    $table->string('employer')->nullable();
-    $table->boolean('is_draft')->default(true);
-    $table->timestamps();
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('nick_name')->nullable();
+            $table->string('picture')->nullable();
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->date('date_of_birth')->nullable();
+            $table->date('baptism_date')->nullable();
+            $table->enum('member_status', ['active', 'inactive']);
+            $table->string('full_address');
+            $table->string('city')->nullable();
+            $table->string('email')->unique();
+            $table->string('phone_number')->nullable();
+            $table->string('job_title')->nullable();
+            $table->string('employer')->nullable();
+            $table->boolean('is_draft')->default(true);
+
+            // Add group_id as a foreign key column
+            $table->unsignedBigInteger('group_id')->nullable(); // Allowing nullable for the case where the member may not belong to a group initially
+
+            // Define the foreign key constraint to the groups table
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null'); 
+
+            $table->timestamps();
         });
     }
 

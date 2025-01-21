@@ -124,9 +124,17 @@
                 <div id="other-details" class="section">
                     <h5>2. Other Details</h5>
                     <div class="form-group">
-                        <label>Groups</label>
-                        <input type="text" name="groups" class="form-control required" value="{{ old('groups', $member->groups) }}" required>
-                    </div>
+    <label for="groups">Groups</label>
+    <select name="groups" class="form-control required" required>
+        <option value="">Select a group</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->id }}" {{ (old('groups', $member->groups) == $group->id) ? 'selected' : '' }}>
+                {{ $group->name }}  <!-- Assuming 'name' is the column that holds the group name -->
+            </option>
+        @endforeach
+    </select>
+</div>
+
                     <div class="form-group">
                         <label>Baptism Date</label>
                         <input type="date" name="baptism_date" class="form-control required" value="{{ old('baptism_date', $member->baptism_date) }}" required>
@@ -157,7 +165,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="text" name="phone" class="form-control required" value="{{ old('phone', $member->phone) }}" required>
+                        <input type="text" name="phone_number" class="form-control required" value="{{ old('phone_number', $member->phone_number) }}" required>
                     </div>
                 </div>
 

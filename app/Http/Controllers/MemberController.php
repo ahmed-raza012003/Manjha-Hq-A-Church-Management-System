@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MembersExport;
 
 class MemberController extends Controller
 {
@@ -25,7 +28,8 @@ class MemberController extends Controller
     // Show the form to create a new member
     public function create()
     {
-        return view('dashboard.members.create');
+        $groups = Group::all(); // Fetch all groups
+        return view('dashboard.members.create', compact( 'groups'));
     }
 
     // Store a new member in the database
@@ -45,9 +49,9 @@ class MemberController extends Controller
 
     // Show the form to edit a member
     public function edit($id)
-    {
+    { $groups = Group::all(); // Fetch all groups
         $member = Member::findOrFail($id);
-        return view('dashboard.members.edit', compact('member'));
+        return view('dashboard.members.edit', compact('member', 'groups'));
     }
 
     // Update a member in the database
@@ -118,19 +122,19 @@ class MemberController extends Controller
     private function validateMember(Request $request, $id = null)
     {
         return $request->validate([
-            'first_name' => 'required|string|max:255|unique:members,first_name,' . $id . ',id,is_draft,false',
+            'first_name' => 'nullable|string|max:255|unique:members,first_name,' . $id . ',id,is_draft,false',
             'middle_name' => 'nullable|string|max:255',
             'nick_name' => 'nullable|string|max:255',
             'picture' => 'nullable|image|max:2048',
-            'gender' => 'required|string|max:10',
+            'gender' => 'nullable|string|max:10',
             'date_of_birth' => 'nullable|date',
-            'groups' => 'nullable|string|max:255',
+            'group_id' => 'nullable|int|max:255',
             'baptism_date' => 'nullable|date',
-            'member_status' => 'required|string|max:50',
-            'full_address' => 'required|string|max:255',
+            'member_status' => 'nullable|string|max:50',
+            'full_address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
-            'email' => 'required|email|max:255|unique:members,email,' . $id . ',id,is_draft,false',
-            'phone_number' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255|unique:members,email,' . $id . ',id,is_draft,false',
+            'phone_number' => 'nullable|string|max:50',
             'job_title' => 'nullable|string|max:255',
             'employer' => 'nullable|string|max:255',
         ]);
@@ -156,5 +160,10 @@ class MemberController extends Controller
             'job_title' => 'nullable|string|max:255',
             'employer' => 'nullable|string|max:255',
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new MembersExport, 'members.xlsx');
     }
 }

@@ -13,19 +13,11 @@ class MembersExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        return Member::select('id', 'first_name', 'email', 'phone_number', 'created_at')->get();
-    }
-
-    /**
-     * Define the headings for the Excel file.
-     */
-    public function headings(): array
-    {
-        return [
-          'first_name',
+        return Member::select('id', 
+         'first_name',
         'middle_name',
         'nick_name',
-        'picture',
+     
         'gender',
         'date_of_birth',
         'groups',
@@ -37,7 +29,32 @@ class MembersExport implements FromCollection, WithHeadings
         'phone_number',
         'job_title',
         'employer',
-                        
+         'created_at')->get();
+    }
+
+    /**
+     * Define the headings for the Excel file.
+     */
+    public function headings(): array
+    {
+        return [
+            'id',
+          'first_name',
+        'middle_name',
+        'nick_name',
+       
+        'gender',
+        'date_of_birth',
+        'groups',
+        'baptism_date',
+        'member_status',
+        'full_address',
+        'city',
+        'email',
+        'phone_number',
+        'job_title',
+        'employer',
+             'created_at'           
         ];
     }
 }

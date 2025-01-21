@@ -123,9 +123,17 @@
                 <div id="other-details" class="section">
                     <h5>2. Other Details</h5>
                     <div class="form-group">
-                        <label>Groups</label>
-                        <input type="text" name="groups" class="form-control">
-                    </div>
+    <label for="groups">Groups</label>
+    <select name="groups" class="form-control required" required>
+        <option value="">Select a group</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->id }}" >
+                {{ $group->name }}  <!-- Assuming 'name' is the column that holds the group name -->
+            </option>
+        @endforeach
+    </select>
+</div>
+
                     <div class="form-group">
                         <label>Baptism Date</label>
                         <input type="date" name="baptism_date" class="form-control">
@@ -140,11 +148,11 @@
                 </div>
 
                 <!-- Address -->
-                <div id="address" class="section">
+                <div id="full_address" class="section">
                     <h5>3. Address</h5>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input type="text" name="address" class="form-control" required>
+                        <input type="text" name="ful_address" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>City</label>
@@ -156,7 +164,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="text" name="phone" class="form-control" required>
+                        <input type="text" name="phone_number" class="form-control" required>
                     </div>
                 </div>
 

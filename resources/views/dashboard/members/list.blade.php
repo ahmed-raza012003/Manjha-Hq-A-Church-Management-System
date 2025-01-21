@@ -209,9 +209,10 @@ td {
             </button>
         </div>
         <div>
-            <a href="{{ route('members.export') }}" class="btn btn-sm button-outlined">
-                <i class="fas fa-download me-1"></i> Export
-            </a>
+        <a href="{{ route('members.export') }}" class="btn btn-sm button-outlined">
+    <i class="fas fa-download me-1"></i> Export
+</a>
+
         </div>
     </div>
 </div>
@@ -223,7 +224,7 @@ td {
                     <th scope="col"><input type="checkbox"></th>
                     <th scope="col">NAME</th>
                     <th scope="col">EMAIL</th>
-                    <th scope="col">MOBILE</th>
+                    <th scope="col">Phone</th>
                     <th scope="col">ACTIONS</th>
                 </tr>
             </thead>
@@ -244,7 +245,7 @@ td {
 </td>
 
                     <td>{{ $member->email }}</td>
-                    <td>{{ $member->mobile }}</td>
+                    <td>{{ $member->phone_number }}</td>
                     <td class="action-btn-container">
                         <!-- Three Dots Button for Action Menu -->
                         <button class="three-dot-btn" onclick="toggleActionMenu({{ $member->id }})">
