@@ -198,7 +198,7 @@
       <li><a href="{{ url('/') }}" title="Home">Home</a></li>
       <li><a href="{{ url('/pricing') }}" title="Pricing">Pricing</a></li>
       <li><a href="{{ url('/login') }}" title="Login">Login</a></li>
-      <li><a href="{{ url('/signup') }}" title="Signup">Signup</a></li>
+      <li><a href="{{ url('/register') }}" title="Signup">Signup</a></li>
     </ul>
   </nav>
 
