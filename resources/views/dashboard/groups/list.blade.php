@@ -284,7 +284,7 @@ td {
             <thead class="table-light text-muted">
                 <tr>
                     <th scope="col"><input type="checkbox"></th>
-                    <th scope="col">GROUP IMAGE & NAME</th>
+                    <th scope="col">GROUP NAME</th>
                     <th scope="col">VISIBILITY</th>
                     <th scope="col">MEMBERS</th>
                     <th scope="col">ACTIONS</th>

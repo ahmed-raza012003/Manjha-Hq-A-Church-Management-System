@@ -27,7 +27,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="white">
-            <a href="index.html" class="logo"><img src="{'assets/img/logo.png'}" alt="navbar brand" class="navbar-brand" height="40" /></a>
+            <a href="{{ url('/dashboard') }}" class="logo"><img src="{{ asset('assets/img/logo.png') }}" alt="navbar brand" class="navbar-brand" height="40" /></a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
               <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
@@ -38,83 +38,99 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item ">
-                <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-                  <i class="fas fa-th-large"></i>
-                  <p>Dashboard</p>
-                </a>
-                
-              </li>
+          <ul class="nav nav-secondary">
+  <li class="nav-item">
+    <a href="{{ route('dashboard.index') }}">
+      <i class="fas fa-th-large"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
 
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#base">
-                  <i class="fas fa-user-friends"></i>
-                  <p>Members</p>
-                </a>
-                
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                  <i class="fa fa-users"></i>
-                  <p>Groups</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#forms">
-                  <i class="fas fa-wallet"></i>
-                  <p>Asset Tracking</p>
-                </a>
-             
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#tables">
-                  <i class="fas fa-chart-bar"></i>
-                  <p>Reports</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#maps">
-                  <i class="fas fa-chart-line"></i>
-                  <p>Contribution</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="maps">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href=""><i class="fa fa-plus-circle"></i>
-                        New Contribution</a>
-                    </li>
-                    <li>
-                      <a href=""><i class="fas fa-chart-line"></i>All Contributions</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#charts">
-                  <i class="fas fa-cog"></i>
+  <li class="nav-item">
+    <a href="{{ route('members.index') }}">
+      <i class="fas fa-user-friends"></i>
+      <p>Members</p>
+    </a>
+  </li>
 
+  <li class="nav-item">
+    <a href="{{ route('groups.index') }}">
+      <i class="fa fa-users"></i>
+      <p>Groups</p>
+    </a>
+  </li>
 
-                  <p>Settings</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="charts">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="charts/charts.html"><i class="fas fa-puzzle-piece"></i>
-                        Integrations</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                  <i class="fa fa-sign-out-alt"></i>
-                  <p>Logout</p>
-                </a>
-              </li>
-            </ul>
+  <li class="nav-item">
+    <a href="{{ route('assets.index') }}">
+      <i class="fas fa-wallet"></i>
+      <p>Asset Tracking</p>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{{ route('events.index') }}">
+    <i class="fas fa-calendar-alt"></i>
+    <p>Events</p>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{{ route('reports.index') }}">
+      <i class="fas fa-chart-bar"></i>
+      <p>Reports</p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a data-bs-toggle="collapse" href="#contributionSubmenu">
+      <i class="fas fa-chart-line"></i>
+      <p>Contribution</p>
+      <span class="caret"></span>
+    </a>
+    <div class="collapse" id="contributionSubmenu">
+      <ul class="nav nav-collapse">
+        <li>
+          <a href="{{ route('contributions.create') }}">
+            <i class="fa fa-plus-circle"></i> New Contribution
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('contributions.index') }}">
+            <i class="fas fa-chart-line"></i> All Contributions
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a data-bs-toggle="collapse" href="#settingsSubmenu">
+      <i class="fas fa-cog"></i>
+      <p>Settings</p>
+      <span class="caret"></span>
+    </a>
+    <div class="collapse" id="settingsSubmenu">
+      <ul class="nav nav-collapse">
+        <li>
+          <a href="{{ route('integrations.index') }}">
+            <i class="fas fa-puzzle-piece"></i> Integrations
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="fa fa-sign-out-alt"></i>
+        <p>Logout</p>
+    </a>
+</li>
+
+<!-- Hidden Form for Logout -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
+</ul>
           </div>
         </div>
       </div>
@@ -125,7 +141,7 @@
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="white">
-              <a href="index.html" class="logo"><img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" /></a>
+              <a href="index.html" class="logo"><img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand" class="navbar-brand" height="20" /></a>
               <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
                 <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
@@ -218,7 +234,7 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-                      <img src="{'assets/img/profile.jpg' %}" alt="..." class="avatar-img rounded-circle" />
+                    <img src="{{ asset('assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle" />
                     </div>
                     <span class="profile-username">
                       <span class="fw-bold">Hizrian</span>
@@ -236,7 +252,7 @@
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" hrefhref="{{ route('logout') }}" >Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -257,35 +273,36 @@
       <!-- End Custom template -->
     </div>
 
-    <script src="{'assets/js/plugin/webfont/webfont.min.js' %}"></script>
-    <!-- Core JS Files -->
-    <script src="{'assets/js/core/jquery-3.7.1.min.js' %}"></script>
-    <script src="{'assets/js/core/popper.min.js' %}"></script>
-    <script src="{'assets/js/core/bootstrap.min.js' %}"></script>
+    <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
+<!-- Core JS Files -->
+<script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 
-    <!-- jQuery Scrollbar -->
-    <script src="{'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+<!-- jQuery Scrollbar -->
+<script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 
-    <!-- Chart JS -->
+<!-- Chart JS -->
 
-    <!-- jQuery Sparkline -->
-    <script src="{'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<!-- jQuery Sparkline -->
+<script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
-    <!-- jQuery Vector Maps -->
-    <script src="{'assets/js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
-    <script src="{'assets/js/plugin/jsvectormap/world.js' %}"></script>
+<!-- jQuery Vector Maps -->
+<script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
 
-    <!-- Sweet Alert -->
-    <script src="{'assets/js/plugin/sweetalert/sweetalert.min.js' %}"></script>
+<!-- Sweet Alert -->
+<script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
-    <!-- Kaiadmin JS -->
-    <script src="{'assets/js/kaiadmin.min.js' %}"></script>
+<!-- Kaiadmin JS -->
+<script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
 
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="{'assets/js/setting-demo.js' %}"></script>
-    <script src="{'assets/js/demo.js' %}"></script>
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script src="{{ asset('assets/js/setting-demo.js') }}"></script>
+<script src="{{ asset('assets/js/demo.js') }}"></script>
+
    
   </body>
 </html>

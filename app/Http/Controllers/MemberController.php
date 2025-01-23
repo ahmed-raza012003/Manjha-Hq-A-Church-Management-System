@@ -3,14 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
+use App\Models\Contribution;
+
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MembersExport;
+use App\Models\Event;
+use Carbon\Carbon;  // Make sure this is included
 
 class MemberController extends Controller
 {
+// Controller
+public function home()
+{
+    $events = Event::all()->map(function ($event) {
+        $event->start_time = Carbon::parse($event->start_time);
+        $event->end_time = Carbon::parse($event->end_time);
+        return $event;
+    });    $membersCount = Member::count(); // Count members
+    $usersCount = User::count(); // Count users
+    $groupsCount = Group::count(); // Count groups
+
+    // Fetch total contribution (replace 'Contribution' with the actual model you're using)
+    $totalContribution = Contribution::sum('amount'); // Assuming there's an 'amount' field in your 'contributions' table
+    
+    // Fetch the last month's total contribution (or any other logic for previous month)
+    $lastMonthContribution = Contribution::whereMonth('created_at', now()->subMonth()->month)->sum('amount');
+
+    return view('dashboard.dashboard_main', compact('events', 'membersCount', 'usersCount', 'groupsCount', 'totalContribution', 'lastMonthContribution'));
+}
+
+
+
+
     // Display a list of members
     public function index(Request $request)
     {

@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\EventController;
 
 use App\Http\Controllers\AssettrackingController;
-
+use App\Http\Controllers\ContributionController;
 use App\Http\Controllers\GroupController;
 
 // Facebook OAuth Routes
@@ -18,8 +21,13 @@ Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebook
 Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+Route::get('/', function () {
+    return view('dashboard/home');
+});
 
-
+Route::get('/pricing', function () {
+    return view('dashboard/pricing');
+});
 
 
 
@@ -57,7 +65,38 @@ Route::delete('/assets/{asset}', [AssettrackingController::class, 'destroy'])->n
         Route::get('/assets/export', [AssettrackingController::class, 'export'])->name('assets.export');
 
     Route::resource('groups', GroupController::class);
-    
+  
+
+Route::get('/contributions/create', [ContributionController::class, 'create'])->name('contributions.create');
+Route::post('/contributions', [ContributionController::class, 'store'])->name('contributions.store');
+Route::get('/contributions', [ContributionController::class, 'index'])->name('contributions.index');
+Route::get('/dashboard', [MemberController::class, 'home'])->name('dashboard.index');
+Route::get('/integrations', [ReportController::class, 'integrations'])->name('integrations.index');
+Route::post('/send-email', [MessageController::class, 'sendEmail'])->name('sendEmail');
+Route::post('/send-sms', [MessageController::class, 'sendSMS'])->name('send.sms');
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+// Display the list of events
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+
+// Show the form to create a new event
+Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+
+// Store the newly created event
+Route::post('/events', [EventController::class, 'store'])->name('events.store');
+
+// Show the form to edit an existing event
+Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+
+// Update the event
+Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
+
+// Delete the event
+Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+
+// Export events (if you want this feature)
+Route::get('/events/export', [EventController::class, 'export'])->name('events.export');
+
 });
 
 require __DIR__.'/auth.php';

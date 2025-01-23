@@ -135,57 +135,40 @@
         }
 </style>
 
+
 <div class="container my-4">
   <div class="row">
-    <!-- Box 1 -->
-    <div class="col-6 col-md-2">
+    <!-- Box 1 (Members) -->
+    <div class="col-6 col-md-3">
       <div class="box">
-        <div class="number">1</div>
+        <div class="number">{{ $membersCount }}</div>
         <p>Members</p>
       </div>
     </div>
-    <!-- Box 2 -->
-    <div class="col-6 col-md-2">
+
+    <!-- Box 2 (Users) -->
+    <div class="col-6 col-md-3">
       <div class="box">
-        <div class="number">2</div>
-        <p>Families</p>
-      </div>
-    </div>
-    <!-- Box 3 -->
-    <div class="col-6 col-md-2">
-      <div class="box">
-        <div class="number">3</div>
+        <div class="number">{{ $usersCount }}</div>
         <p>Users</p>
       </div>
     </div>
-    <!-- Box 4 -->
-    <div class="col-6 col-md-2">
+
+    <!-- Box 3 (Groups) -->
+    <div class="col-6 col-md-3">
       <div class="box">
-        <div class="number">4</div>
+        <div class="number">{{ $groupsCount }}</div>
         <p>Groups</p>
       </div>
     </div>
-    <!-- Box 5 -->
-    <div class="col-6 col-md-2">
+
+    <!-- Box 4 (Events) -->
+    <div class="col-6 col-md-3">
       <div class="box">
-        <div class="number">5</div>
+        <div class="number">{{ $events->count() }}</div>
         <p>Events</p>
       </div>
     </div>
-    <!-- Box 6 -->
-    <div class="col-6 col-md-2">
-      <div class="box">
-        <div class="number">6</div>
-        <p>Users</p>
-      </div>
-    </div>
-    <!-- Box 7 -->
-    <!-- <div class="col-6 col-md-2">
-            <div class="box">
-                <div class="number">7</div>
-                <p>Content for Box 7</p>
-            </div>
-        </div> -->
   </div>
 </div>
 
@@ -195,34 +178,33 @@
     <div class="col-md-12 mb-1">
       <h4 class="text-left text-muted">Contribution</h4>
       <p class="text-left text-muted">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur,
-        quaerat
+      All of the contriutions
       </p>
     </div>
   </div>
 </div>
 
-<div class="container ">
+<div class="container">
   <div class="row">
-    <div class="col-md-12 ">
-      <!-- Card -->
+    <div class="col-md-12">
+      <!-- Card for Total Contribution -->
       <div class="custom-card">
         <!-- Card Header -->
         <div class="custom-card-header">
-          <h2 class="">USD $7299.00</h2>
+          <h2 class="">USD ${{ number_format($totalContribution, 2) }}</h2>
         </div>
         <!-- Card Body -->
         <div class="custom-card-body">
-          <p class="text-muteds">Contribution Lat Week</p>
+          <p class="text-muted">Total Contribution</p>
         </div>
         <!-- Card Footer -->
         <div class="custom-card-footer">
-          <p>Last Month USD $22.5k</p>
+          <p>Last Month: USD ${{ number_format($lastMonthContribution, 2) }}</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+
 
 <div class="container mt-5">
   <div class="row">
@@ -230,102 +212,65 @@
     <div class="col-md-12 mb-1">
       <h4 class="text-left text-muted">Upcoming Events</h4>
       <p class="text-left text-muted">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur,
-        quaerat
+      Events
       </p>
     </div>
   </div>
 </div>
 
 <div class="container">
-    <div class="row justify-content-center">
-        <!-- Event Card -->
-        <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-header">
-                    <div class="icon">
-                        <i class="far fa-calendar-check"></i>
-                    </div>
-                    
-                    <div class="icon">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </div>
+    <div class="row justify-content-left">
+       
+
+     @foreach($events as $event)
+    <div class="col-md-4">
+        <div class="event-card">
+            <!-- Event Header -->
+            <div class="event-header d-flex justify-content-between align-items-center">
+                <div class="icon">
+                    <i class="far fa-calendar-check"></i>
                 </div>
-                <p class="text-muted mt-3">Leader’s Meeting</p>
-                <div class="event-body">
-                    <p>The hierarchy is divided in three parts: headings, bold and regular body styles. The hierarchy is divided in three parts: headings, bold and regular body styles.</p>
-                </div>
-                <div class="event-footer">
-                    <div>
-                        <div  class="date-time"><span>Tue 21 May 2024</span><span class="mx-4">8 PM To 9 PM</span></div>
-                    </div>
-                   
-                </div>
-                <div>
-                    <div class="attended">Attended: 0</div>
-                    <button class="checkin-btn">Check In</button>
+                <div class="icon">
+                    <i class="fas fa-ellipsis-h"></i>
                 </div>
             </div>
-        </div>
 
-         <!-- Event Card -->
-         <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-header">
-                    <div class="icon">
-                        <i class="far fa-calendar-check"></i>
-                    </div>
-                    
-                    <div class="icon">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                </div>
-                <p class="text-muted mt-3">Leader’s Meeting</p>
-                <div class="event-body">
-                    <p>The hierarchy is divided in three parts: headings, bold and regular body styles. The hierarchy is divided in three parts: headings, bold and regular body styles.</p>
-                </div>
-                <div class="event-footer">
-                    <div>
-                        <div  class="date-time"><span>Tue 21 May 2024</span><span class="mx-4">8 PM To 9 PM</span></div>
-                    </div>
-                   
-                </div>
-                <div>
-                    <div class="attended">Attended: 0</div>
-                    <button class="checkin-btn">Check In</button>
+            <!-- Event Title -->
+            <p class="text-muted mt-3">{{ $event->title }}</p>
+
+            <!-- Event Body -->
+            <div class="event-body">
+                <p>{{ $event->description ?? 'No description available.' }}</p>
+            </div>
+
+            <!-- Event Footer -->
+            <div class="event-footer d-flex justify-content-between align-items-center">
+                <div class="date-time">
+                    @if ($event->start_time && $event->end_time)
+                        <!-- Displaying Date and Time -->
+                        <span>{{ $event->start_time->format('D, d M Y') }}</span>
+                        <span class="mx-4">{{ $event->start_time->format('h:i A') }} To {{ $event->end_time->format('h:i A') }}</span>
+                    @else
+                        <span>Time Not Available</span>
+                    @endif
                 </div>
             </div>
-        </div>
 
-
-         <!-- Event Card -->
-         <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-header">
-                    <div class="icon">
-                        <i class="far fa-calendar-check"></i>
-                    </div>
-                    
-                    <div class="icon">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                </div>
-                <p class="text-muted mt-3">Leader’s Meeting</p>
-                <div class="event-body">
-                    <p>The hierarchy is divided in three parts: headings, bold and regular body styles. The hierarchy is divided in three parts: headings, bold and regular body styles.</p>
-                </div>
-                <div class="event-footer">
-                    <div>
-                        <div  class="date-time"><span>Tue 21 May 2024</span><span class="mx-4">8 PM To 9 PM</span></div>
-                    </div>
-                   
-                </div>
-                <div>
-                    <div class="attended">Attended: 0</div>
-                    <button class="checkin-btn">Check In</button>
-                </div>
+            <!-- Attendance and Check-In -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="attended">Attended: {{ $event->attendees_count ?? 0 }}</div>
+                <button class="checkin-btn ">Check In</button>
             </div>
         </div>
+    </div>
+@endforeach
+
+
+
+
+
+
+
       
        
     </div>

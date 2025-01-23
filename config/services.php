@@ -43,4 +43,9 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
 
+    'twilio' => [
+    'sid' => env('TWILIO_SID'),
+    'token' => env('TWILIO_TOKEN'),
+    'from_number' => env('TWILIO_PHONE_NUMBER') // Changed from 'phone_number'
+]
 ];
