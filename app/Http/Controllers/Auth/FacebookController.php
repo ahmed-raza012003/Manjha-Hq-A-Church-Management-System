@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 
 class FacebookController extends Controller
 {
@@ -24,31 +24,48 @@ class FacebookController extends Controller
     public function handleFacebookCallback()
     {
         try {
-            // Retrieve user information from Facebook
             $facebookUser = Socialite::driver('facebook')->stateless()->user();
-
-            // Check if the user already exists in your database
+    
             $user = User::where('email', $facebookUser->getEmail())->first();
-
+    
             if (!$user) {
-                // User does not exist, create a new user
-                $user = User::create([
-                    'church_name' => 'Your Default Church Name', // Replace with dynamic value if needed
+                session(['social_user' => [
                     'first_name' => $facebookUser->getName(),
                     'email' => $facebookUser->getEmail(),
-                    'google_id' => null,
                     'facebook_id' => $facebookUser->getId(),
-                    'password' => Hash::make(uniqid()), // Temporary password
-                ]);
+                    'provider' => 'facebook',
+                ]]);
+    
+                return redirect()->route('auth.church_name');
             }
-
-            // Log the user in
+    
+            if (!$user->facebook_id) {
+                $user->update(['facebook_id' => $facebookUser->getId()]);
+            }
+    
+            if (!$user->church_name) {
+                session(['user_id' => $user->id]);
+                return redirect()->route('auth.church_name');
+            }
+    
+            if (!$user->hasActiveSubscription()) {
+                return redirect()->route('packages.index')->with('error', 'You need a subscription to access the dashboard.');
+            }
             Auth::login($user);
 
-            // Redirect to home or dashboard
-            return redirect()->route('home');
+            if ($user->roles->isEmpty()) {
+                $user->assignRole('super admin');
+            }
+
+            // Store user credentials for auto-login
+            session(['user_credentials' => [
+                'email' => $user->email
+            ]]);
+
+            Auth::login($user);
+
+            return redirect()->route('welcome')->with('success', 'Subscription successful! Welcome to your dashboard.');
         } catch (\Exception $e) {
-            // Handle error and redirect to login page with an error message
             return redirect()->route('login')->with('error', 'Failed to authenticate with Facebook.');
         }
     }

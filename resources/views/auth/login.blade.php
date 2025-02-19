@@ -98,6 +98,13 @@
     </style>
   </head>
   <body>
+
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
     <div class="form-container mt-5">
       <h3 class="form-title">Sign in to <span>ManjaHQ</span></h3>
       <form method="POST" action="{{ route('login') }}">

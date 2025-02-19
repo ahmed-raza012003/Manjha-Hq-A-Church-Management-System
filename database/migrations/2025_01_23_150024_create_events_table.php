@@ -16,6 +16,8 @@ class CreateEventsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->integer('number_of_attendees')->default(0);
+            $table->string('church_name')->index();
+
             $table->timestamps();
         });
     }

@@ -16,9 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('asset_id')->unique();
             $table->string('category');
+
+            $table->integer('stock');
             $table->decimal('price', 10, 2);
             $table->enum('status', ['Active', 'Inactive', 'Scheduled', 'Draft']);
             $table->string('image')->nullable();
+
+            $table->string('church_name')->index();
+
             $table->timestamps();
         });
     }

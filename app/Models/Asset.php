@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
 {
-    protected $fillable = ['name','stock', 'asset_id', 'category', 'price', 'status', 'image'];
+    protected $fillable = ['name','stock', 'asset_id', 'category', 'price', 'status', 'image'  ,'church_name',];
 
     use HasFactory;
 }

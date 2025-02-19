@@ -28,16 +28,22 @@ return new class extends Migration
             $table->string('job_title')->nullable();
             $table->string('employer')->nullable();
             $table->boolean('is_draft')->default(true);
+            $table->string(column: 'church_name')->index();
 
+            // Add user_id as a foreign key column
+            $table->unsignedBigInteger('user_id');  // Add the user_id column
+    
+            // Define the foreign key constraint to the users table
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
+    
             // Add group_id as a foreign key column
             $table->unsignedBigInteger('group_id')->nullable(); // Allowing nullable for the case where the member may not belong to a group initially
-
-            // Define the foreign key constraint to the groups table
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null'); 
-
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null');
+    
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

@@ -15,7 +15,8 @@ class Contribution extends Model
         'date', 
         'amount', 
         'fund', 
-        'batch_id'
+        'batch_id',
+        'church_name'
     ];
 
     public function member()

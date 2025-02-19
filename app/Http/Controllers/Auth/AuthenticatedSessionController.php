@@ -25,12 +25,41 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            $request->authenticate();
+            $request->session()->regenerate();
+        
+            $user = Auth::user();
+    
+            if (!$user->church_name) {
+                return redirect()->route('auth.church_name')->with('error', 'Please provide a church name to continue.');
+            }
+    
+            if (!$user->hasActiveSubscription()) {
+                return redirect()->route('packages.index')->with('error', 'You need a subscription to access the dashboard.');
+            }
+            Auth::login($user);
 
-        $request->session()->regenerate();
+            if ($user->roles->isEmpty()) {
+                $user->assignRole('super admin');
+            }
+  // Store user credentials for auto-login
+  session(['user_credentials' => [
+    'email' => $user->email
+]]);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+Auth::login($user);
+            return redirect()->route(route: 'welcome')->with('success', 'Welcome to your dashboard!');
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Failed to authenticate.');
+        }
     }
+    
+
+
+    
+
+    
 
     /**
      * Destroy an authenticated session.

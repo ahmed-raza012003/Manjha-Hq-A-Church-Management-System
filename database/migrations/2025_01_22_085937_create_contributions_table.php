@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('fund');
             $table->string('batch_id')->nullable(); // Grouping ID for batches
             $table->timestamps();
-        
+            $table->string('church_name')->index();
+
             $table->foreign('member_id')->references('id')->on('members')->onDelete('set null');
         });
         

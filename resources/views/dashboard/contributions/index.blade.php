@@ -72,8 +72,7 @@
                     <tr>
                         <td>{{ $contribution->date }}</td>
                         <td>
-                            <img src="https://via.placeholder.com/40" alt="Avatar" class="rounded-circle me-2">
-                            {{ $contribution->member->name ?? 'Anonymous' }}
+                            {{ $contribution->member->first_name ?? 'Anonymous' }}
                         </td>
                         <td>Rs {{ number_format($contribution->amount, 2) }}</td>
                         <td>{{ $contribution->fund }}</td>

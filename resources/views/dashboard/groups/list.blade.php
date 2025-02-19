@@ -157,9 +157,14 @@ td {
                 <h5 class="modal-title" id="createGroupModalLabel">Create New Group</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
                 <form action="{{ route('groups.store') }}" method="POST">
                     @csrf
+
+                    <input type="hidden" name="church_name" value="{{ auth()->user()->church_name }}">
+
+                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                     <div class="mb-3">
                         <label for="groupName" class="form-label">Group Name</label>
                         <input type="text" class="form-control" id="groupName" name="name" required>

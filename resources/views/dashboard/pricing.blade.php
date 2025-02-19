@@ -14,8 +14,8 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/base.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/main.css') }}" />
    
     <!-- script
     ================================================== -->
@@ -243,27 +243,27 @@
               <th>
                 V. Small <br />
                 <span class="price">$12</span> <br />
-                <a href="#" class="btn-choose">Choose</a>
+                <a href="{{ url('/login') }}" class="btn-choose">Choose</a>
               </th>
               <th>
                 Small <br />
                 <span class="price">$25</span> <br />
-                <a href="#" class="btn-choose">Choose</a>
+                <a href="{{ url('/login') }}" class="btn-choose">Choose</a>
               </th>
               <th>
                 Medium <br />
                 <span class="price">$40</span> <br />
-                <a href="#" class="btn-choose">Choose</a>
+                <a href="{{ url('/login') }}" class="btn-choose">Choose</a>
               </th>
               <th>
                 Large <br />
                 <span class="price">$50</span> <br />
-                <a href="#" class="btn-choose">Choose</a>
+                <a href="{{ url('/login') }}" class="btn-choose">Choose</a>
               </th>
               <th>
                 Unlimited <br />
                 <span class="price">$60</span> <br />
-                <a href="#" class="btn-choose">Choose</a>
+                <a href="{{ url('/login') }}" class="btn-choose">Choose</a>
               </th>
             </tr>
           </thead>
@@ -557,9 +557,9 @@
 
     <!-- Java Script
     ================================================== -->
-    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('js/plugins.js') }}"></script>
-<script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset(path: 'js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('public/js/plugins.js') }}"></script>
+<script src="{{ asset('public/js/main.js') }}"></script>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
   </body>

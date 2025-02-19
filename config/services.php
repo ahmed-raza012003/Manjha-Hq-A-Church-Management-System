@@ -47,5 +47,12 @@ return [
     'sid' => env('TWILIO_SID'),
     'token' => env('TWILIO_TOKEN'),
     'from_number' => env('TWILIO_PHONE_NUMBER') // Changed from 'phone_number'
-]
+    ],
+
+   'stripe' => [
+    'key' => env('STRIPE_KEY'),
+    'secret' => env('STRIPE_SECRET'),
+],
+
+
 ];

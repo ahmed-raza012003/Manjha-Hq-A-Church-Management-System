@@ -14,17 +14,17 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/base.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/main.css') }}" />
     <!-- script
     ================================================== -->
-    <script src="{{ asset('assets/js/modernizr.js') }}"></script>
+    <script src="{{ asset('public/assets/js/modernizr.js') }}"></script>
 
     <!-- favicons
     ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon-32x32.png') }}" />
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon-16x16.png') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/assets/img/favicon-32x32.png') }}" />
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/assets/img/favicon-16x16.png') }}" />
 
     <link rel="manifest" href="site.webmanifest" />
   </head>
@@ -45,7 +45,7 @@
     <header class="s-header">
       <div class="header-logo">
         <a class="site-logo" href="index.html">
-          <!-- <img src="images/thumbs/logo.png" alt="Homepage" style="height: 100px;width: 180px;"> -->
+          <!-- <img src="public/images/thumbs/logo.png" alt="Homepage" style="height: 100px;width: 180px;"> -->
           <h1 style="color: white; margin-top: -10px">ManjaHQ</h1>
         </a>
       </div>
@@ -68,7 +68,7 @@
     <section
       class="s-hero"
       data-parallax="scroll"
-      data-image-src="{{ asset('assets/img/hero-bg.jpg') }}"
+      data-image-src="{{ asset('public/assets/img/hero-bg.jpg') }}"
       data-natural-width="3000"
       data-natural-height="2000"
       data-position-y="center"
@@ -130,7 +130,7 @@
           </p>
           <!-- <a href="about.html" class="btn btn--primary btn--about">More About Hesed</a> -->
         </div>
-        <img src="{{ asset('assets/img/home.png') }}" alt="" style="width: 500px" />
+        <img src="{{ asset('public/assets/img/home.png') }}" alt="" style="width: 500px" />
         </div>
 
       <!-- end about-content -->
@@ -148,7 +148,7 @@
             contributions effortlessly. Provide members with giving statements
             and ensure transparency and accountability in financial matters.
           </p>
-          <img src="{{ asset('assets/img/contribution.jpg')}}" alt="" />
+          <img src="{{ asset('public/assets/img/contribution.jpg')}}" alt="" />
 
           <!-- <a href="volunteer.html" class="btn btn--primary h-full-width">I'm Interested</a> -->
         </div>
@@ -160,7 +160,7 @@
             Communicate effectively and track participation and activities
             within each group.
           </p>
-          <img src="{{ asset('assets/img/grp.jpg')}}" alt="" />
+          <img src="{{ asset('public/assets/img/grp.jpg')}}" alt="" />
 
           <!-- <a href="connect-group.html" class="btn btn--primary h-full-width">Learn More</a> -->
         </div>
@@ -178,7 +178,7 @@
             property. Manage maintenance schedules and ensure everything is
             accounted for and in optimal condition.
           </p>
-          <img src="{{ asset('assets/img/contribution.jpg')}}" alt="" />
+          <img src="{{ asset('public/assets/img/contribution.jpg')}}" alt="" />
 
           <!-- <a href="volunteer.html" class="btn btn--primary h-full-width">I'm Interested</a> -->
         </div>
@@ -190,7 +190,7 @@
             community. Keep track of their information, attendance, and
             engagement with just a few clicks."
           </p>
-          <img src="{{ asset('assets/img/people.jpg')}}" alt="" />
+          <img src="{{ asset('public/assets/img/people.jpg')}}" alt="" />
 
           <!-- <a href="connect-group.html" class="btn btn--primary h-full-width">Learn More</a> -->
         </div>
@@ -207,7 +207,7 @@
             attendance, contributions, and other key metrics. Make data-driven
             decisions to support your church's growth and operations.
           </p>
-          <img src="{{ asset('assets/img/report.jpg')}}" alt="" />
+          <img src="{{ asset('public/assets/img/report.jpg')}}" alt="" />
 
           <!-- <a href="volunteer.html" class="btn btn--primary h-full-width">I'm Interested</a> -->
         </div>
@@ -308,7 +308,7 @@
           <a href="">
             <div class="store-button app-store">
               <img
-                src="{{ asset('assets/img/Apple_logo_black.svg') }}"
+                src="{{ asset('public/assets/img/Apple_logo_black.svg') }}"
                 alt=""
                 class="logos white-logo"
               />
@@ -408,9 +408,9 @@
 
     <!-- Java Script
     ================================================== -->
-    <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugins.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('public/assets/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/plugins.js') }}"></script>
+<script src="{{ asset('public/assets/js/main.js') }}"></script>
 
   </body>
 </html>

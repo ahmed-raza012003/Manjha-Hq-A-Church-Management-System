@@ -29,18 +29,22 @@ class EventController extends Controller
     // Store new event
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'required|string', // Added description
+
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
             'number_of_attendees' => 'required|integer',
-            'status' => 'required|string',
         ]);
-
-        Event::create($request->all());
-
+    
+        $validated['church_name'] = auth()->user()->church_name; // Attach church_name
+    
+        Event::create($validated);
+    
         return redirect()->route('events.index')->with('success', 'Event created successfully!');
     }
+    
 
     // Show form to edit existing event
     public function edit(Event $event)
@@ -53,10 +57,11 @@ class EventController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'required|string', // Added description
+
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
             'number_of_attendees' => 'required|integer',
-            'status' => 'required|string',
         ]);
 
         $event->update($request->all());

@@ -158,6 +158,8 @@
         <div class="modal-content">
             <form action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="church_name" value="{{ auth()->user()->church_name }}">
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="createAssetModalLabel">Create Asset</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

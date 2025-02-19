@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\User;
 use App\Models\Contribution;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Group;
 use Illuminate\Http\Request;
@@ -16,42 +17,22 @@ use Carbon\Carbon;  // Make sure this is included
 
 class MemberController extends Controller
 {
-// Controller
-public function home()
-{
-    $events = Event::all()->map(function ($event) {
-        $event->start_time = Carbon::parse($event->start_time);
-        $event->end_time = Carbon::parse($event->end_time);
-        return $event;
-    });    $membersCount = Member::count(); // Count members
-    $usersCount = User::count(); // Count users
-    $groupsCount = Group::count(); // Count groups
-
-    // Fetch total contribution (replace 'Contribution' with the actual model you're using)
-    $totalContribution = Contribution::sum('amount'); // Assuming there's an 'amount' field in your 'contributions' table
-    
-    // Fetch the last month's total contribution (or any other logic for previous month)
-    $lastMonthContribution = Contribution::whereMonth('created_at', now()->subMonth()->month)->sum('amount');
-
-    return view('dashboard.dashboard_main', compact('events', 'membersCount', 'usersCount', 'groupsCount', 'totalContribution', 'lastMonthContribution'));
-}
-
-
 
 
     // Display a list of members
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $members = Member::query()
-            ->when($search, function($query) use ($search) {
+        $members = Member::where('church_name', auth()->user()->church_name) // Filter by church_name
+            ->when($search, function ($query) use ($search) {
                 return $query->where('first_name', 'like', "%$search%")
                              ->orWhere('email', 'like', "%$search%")
                              ->orWhere('phone_number', 'like', "%$search%");
-            })
-            ->paginate(10); // Paginate results
+            })->paginate(10); // Paginate results
+    
         return view('dashboard.members.list', compact('members', 'search'));
     }
+    
 
     // Show the form to create a new member
     public function create()
@@ -63,17 +44,42 @@ public function home()
     // Store a new member in the database
     public function store(Request $request)
     {
-        $validatedData = $this->validateMember($request);
-        $validatedData['group_id'] = $request->input('group_id');
-        if ($request->hasFile('picture')) {
-            $validatedData['picture'] = $request->file('picture')->store('pictures', 'public');
+        $user = Auth::user();
+        $package = $user->package;
+    
+        $memberCount = Member::where('church_name', $user->church_name)->count(); // Count by church_name
+        if ($memberCount >= $package->max_members) {
+            return redirect()->route('members.index')->with('error', 'You have reached the maximum number of members allowed with your current package.');
         }
-
-        $validatedData['is_draft'] = false;
-        Member::create($validatedData);
-
-        return redirect()->route('members.index')->with('success', 'Member created successfully.');
+    
+        $member = new Member($request->all());
+        $member->user_id = $user->id;
+        $member->church_name = $user->church_name; // Attach church_name
+        $member->save();
+    
+        return redirect()->route('members.index');
     }
+    
+
+public function update(Request $request, $id)
+{
+    $member = Member::findOrFail($id);
+    $validatedData = $this->validateMember($request, $id);
+
+    // Update user_id to associate the member with the authenticated user
+    $validatedData['user_id'] = auth()->id();  // Save the authenticated user's ID
+    
+    if ($request->hasFile('picture')) {
+        if ($member->picture) {
+            Storage::disk('public')->delete($member->picture);
+        }
+        $validatedData['picture'] = $request->file('picture')->store('pictures', 'public');
+    }
+
+    $member->update($validatedData);
+
+    return redirect()->route('members.index')->with('success', 'Member updated successfully.');
+}
 
     // Show the form to edit a member
     public function edit($id)
@@ -82,23 +88,7 @@ public function home()
         return view('dashboard.members.edit', compact('member', 'groups'));
     }
 
-    // Update a member in the database
-    public function update(Request $request, $id)
-    {
-        $member = Member::findOrFail($id);
-        $validatedData = $this->validateMember($request, $id);
-
-        if ($request->hasFile('picture')) {
-            if ($member->picture) {
-                Storage::disk('public')->delete($member->picture);
-            }
-            $validatedData['picture'] = $request->file('picture')->store('pictures', 'public');
-        }
-
-        $member->update($validatedData);
-
-        return redirect()->route('members.index')->with('success', 'Member updated successfully.');
-    }
+  
 
     // Save a new draft
     public function saveDraft(Request $request)
@@ -159,7 +149,7 @@ public function home()
             'group_id' => 'nullable|int|max:255',
             'baptism_date' => 'nullable|date',
             'member_status' => 'nullable|string|max:50',
-            'full_address' => 'nullable|string|max:255',
+'full_address' => 'required|string|max:255|unique:members,full_address,' . $id . ',id,is_draft,false',
             'city' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255|unique:members,email,' . $id . ',id,is_draft,false',
             'phone_number' => 'nullable|string|max:50',
@@ -181,7 +171,7 @@ public function home()
             'group_id' => 'nullable|int|max:255',
             'baptism_date' => 'nullable|date',
             'member_status' => 'nullable|string|max:50',
-            'full_address' => 'nullable|string|max:255',
+            'full_address' => 'nullable|string|max:255'. $id . ',id,is_draft,false',
             'city' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255|unique:members,email,' . $id . ',id,is_draft,true',
             'phone_number' => 'nullable|string|max:20',

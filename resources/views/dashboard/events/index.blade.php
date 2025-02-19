@@ -131,6 +131,9 @@
         <div class="modal-content">
             <form action="{{ route('events.store') }}" method="POST">
                 @csrf
+
+                <input type="hidden" name="church_name" value="{{ auth()->user()->church_name }}">
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="createEventModalLabel">Create Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

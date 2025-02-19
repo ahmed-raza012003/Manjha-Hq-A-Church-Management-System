@@ -10,7 +10,10 @@ class Group extends Model
     protected $fillable = [
         'name',
         'picture',
-        'description'
+        'description',
+        'user_id',
+        'church_name',
+    
     ];
     use HasFactory;
     public function members()

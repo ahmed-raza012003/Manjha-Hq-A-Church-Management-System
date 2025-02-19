@@ -85,6 +85,7 @@
         <div class="col-md-9">
             <form id="memberForm" action="{{ route('members.saveDraft') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="church_name" value="{{ auth()->user()->church_name }}">
 
                 <!-- Personal Info -->
                 <div id="personal-info" class="section active">
@@ -152,8 +153,9 @@
                     <h5>3. Address</h5>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input type="text" name="ful_address" class="form-control" required>
+                        <input type="text" name="full_address" class="form-control" required>
                     </div>
+                    
                     <div class="form-group">
                         <label>City</label>
                         <input type="text" name="city" class="form-control" required>

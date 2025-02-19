@@ -136,40 +136,54 @@
 </style>
 
 
+@if (Auth::user()->hasRole('super admin'))
+  <!-- Content visible only to superadmin -->
+
 <div class="container my-4">
-  <div class="row">
-    <!-- Box 1 (Members) -->
-    <div class="col-6 col-md-3">
-      <div class="box">
-        <div class="number">{{ $membersCount }}</div>
-        <p>Members</p>
+  <div class="container my-4">
+    <div class="row">
+      <!-- Box 1 (Groups) -->
+      <div class="col-6 col-md-3">
+        <div class="box">
+          <div class="number">{{ $groupsCount }}</div>
+          <p>Groups Created</p>
+          <h4 class="{{ $maxGroups !== null && ($maxGroups - $groupsCount) <= 0 ? 'text-danger' : '' }}">
+            {{ $maxGroups !== null ? $maxGroups - $groupsCount : 'Unlimited' }}
+          </h4>
+          <p>Groups Remaining</p>
+        </div>
       </div>
-    </div>
-
-    <!-- Box 2 (Users) -->
-    <div class="col-6 col-md-3">
-      <div class="box">
-        <div class="number">{{ $usersCount }}</div>
-        <p>Users</p>
+  
+      <!-- Box 2 (Members) -->
+      <div class="col-6 col-md-3">
+        <div class="box">
+          <div class="number">{{ $membersCount }}</div>
+          <p>Members Added</p>
+          <h4 class="{{ $maxMembers !== null && ($maxMembers - $membersCount) <= 0 ? 'text-danger' : '' }}">
+            {{ $maxMembers !== null ? $maxMembers - $membersCount : 'Unlimited' }}
+          </h4>
+          <p>Members Remaining</p>
+        </div>
       </div>
-    </div>
-
-    <!-- Box 3 (Groups) -->
-    <div class="col-6 col-md-3">
-      <div class="box">
-        <div class="number">{{ $groupsCount }}</div>
-        <p>Groups</p>
+  
+      <!-- Box 3 (Users) -->
+      <div class="col-6 col-md-3">
+        <div class="box">
+          <div class="number">{{ $usersCount }}</div>
+          <p>Users</p>
+        </div>
       </div>
-    </div>
-
-    <!-- Box 4 (Events) -->
-    <div class="col-6 col-md-3">
-      <div class="box">
-        <div class="number">{{ $events->count() }}</div>
-        <p>Events</p>
+  
+      <!-- Box 4 (Events) -->
+      <div class="col-6 col-md-3">
+        <div class="box">
+          <div class="number">{{ $events->count() }}</div>
+          <p>Events</p>
+        </div>
       </div>
     </div>
   </div>
+  
 </div>
 
 <div class="container mt-5">
@@ -217,7 +231,7 @@
     </div>
   </div>
 </div>
-
+@endif
 <div class="container">
     <div class="row justify-content-left">
        

@@ -29,8 +29,9 @@ class Member extends Model
         'email',
         'phone_number',
         'job_title',
-        'employer',
+        'employer','user_id',
         'is_draft',
+        'church_name',
     ];
 
     /**

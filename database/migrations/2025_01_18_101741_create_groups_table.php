@@ -16,9 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('picture')->nullable();
             $table->text('description')->nullable();
+            $table->string(column: 'church_name')->index();
+
+            // Add the user_id column to associate the group with a user
+            $table->unsignedBigInteger('user_id');
+    
+            // Add foreign key constraint to user_id
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

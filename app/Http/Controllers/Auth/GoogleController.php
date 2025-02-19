@@ -4,57 +4,61 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 
 class GoogleController extends Controller
 {
-    /**
-     * Redirect to Google authentication page.
-     */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    /**
-     * Handle Google callback for login and signup.
-     */
-    public function handleGoogleCallback()
+    public function handleGoogleCallback() 
     {
         try {
-            // Retrieve user information from Google
             $googleUser = Socialite::driver('google')->stateless()->user();
-
-            // Check if the user already exists in your database
             $user = User::where('email', $googleUser->getEmail())->first();
-
+    
             if (!$user) {
-                $user = User::create([
-                    'church_name' => 'Your Default Church Name', // Replace if necessary
+                session(['social_user' => [
                     'first_name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
                     'google_id' => $googleUser->getId(),
-                    'password' => Hash::make(uniqid()), // Temporary password
-                ]);
-            } else {
-                // Update existing user with Google ID if not already set
-                if (!$user->google_id) {
-                    $user->update([
-                        'google_id' => $googleUser->getId(),
-                    ]);
-                }
+                    'provider' => 'google',
+                ]]);
+    
+                return redirect()->route('auth.church_name');
             }
-            
-
-            // Log the user in
+    
+            if (!$user->google_id) {
+                $user->update(['google_id' => $googleUser->getId()]);
+            }
+    
+            if (!$user->church_name) {
+                session(['user_id' => $user->id]);
+                return redirect()->route('auth.church_name');
+            }
+    
+            if (!$user->hasActiveSubscription()) {
+                return redirect()->route('packages.index')->with('error', 'You need a subscription to access the dashboard.');
+            }
             Auth::login($user);
 
-            // Redirect to home or dashboard
-            return redirect()->route('/');
+            if ($user->roles->isEmpty()) {
+                $user->assignRole('super admin');
+            }
+
+            // Store user credentials for auto-login
+            session(['user_credentials' => [
+                'email' => $user->email
+            ]]);
+
+            Auth::login($user);
+
+            return redirect()->route('welcome')->with('success', 'Subscription successful! Welcome to your dashboard.');
         } catch (\Exception $e) {
-            // Handle error and redirect to login page with an error message
             return redirect()->route('login')->with('error', 'Failed to authenticate with Google.');
         }
     }

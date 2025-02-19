@@ -20,7 +20,13 @@ return new class extends Migration
             $table->string('password');
             $table->string('google_id')->nullable()->unique();
             $table->string('facebook_id')->nullable()->unique();
+            $table->string('stripe_customer_id')->nullable();
+            $table->string('stripe_subscription_id')->nullable();
+            $table->unsignedBigInteger('package_id')->nullable(); // Store the package ID instead of plan name
+            $table->timestamp('subscription_ends_at')->nullable();
+            
             $table->rememberToken();
+
             $table->timestamps();
         });
     }
